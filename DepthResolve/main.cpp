@@ -292,6 +292,10 @@ void InitHooks() {
 	WriteRelJumpEx(0x875E40, &TESMainEx::RenderDepthOfField);
 	WriteRelJump(0xB54090, &ImageSpaceManagerEx::GetDepthTexture);
 
+	// BSShaderAccumulator::RegisterObject_Standard
+	// Skip accumulating geometry to depth groups, as we don't render them anymore
+	SafeWrite8(0xB64057, 0xEB);
+
 	// BSShaderAccumulator::FinishAccumulating_Standard_PreResolveDepth
 	// Skip alpha blend rendering.
 	SafeWriteBuf(0xB65C43, "\x90\x90\x90\x90\x90\x90\x90", 7);
